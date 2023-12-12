@@ -19,6 +19,8 @@ let divide = (numberOne, numberTwo) => {
 };
 
 let operate =(operator, numberOne, numberTwo) => {
-    operator==='+'? add(numberOne,numberTwo):
+    return operator === '+' ? add(numberOne,numberTwo):
     operator ==='-'? subtract(numberOne, numberTwo):
-    operator 
+    operator ==='*'? multiply(numberOne, numberTwo):
+    operator ==='/'? divide(numberOne, numberTwo): null;
+    };

@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>TOP Calculator Project</title>
+    <link rel="icon" href="./icon/icons8-square-with-numbers-16.png">
 </head>
 <body>
     <div id ='calculator'>
         <div id="display">
-            <p id="operation"> </p>
-            <p id="input">0</p></div>
+            <p id="operation"></p>
+            <p id="input">0</p>
+        </div>
         <div class="row">
             <button id="clear">CLEAR</button>
             <button id="delete">DELETE</button>
@@ -19,29 +21,39 @@
             <button class="digit">7</button>
             <button class="digit">8</button>
             <button class="digit">9</button>
-            <button>/</button>
+            <button class="operator">/</button>
         </div>
         <div class="row">
             <button class="digit">4</button>
             <button class="digit">5</button>
             <button class="digit">6</button>
-            <button>*</button>
+            <button class="operator">*</button>
         </div>
         <div class="row">
             <button class="digit">1</button>
             <button class="digit">2</button>
             <button class="digit">3</button>
-            <button>-</button>
+            <button class="operator">-</button>
         </div>
         <div class="row">
-            <button>.</button>
+            <button id="dot">.</button>
             <button class="digit">0</button>
-            <button>=</button>
-            <button>+</button>
+            <button class="equal">=</button>
+            <button class="operator">+</button>
         </div>
     </div>
-
-    
+    <footer>
+        <div id="attribution">
+            <div id="copyright">
+                &copy; 2024 Kosta-S
+                <a target="_blank" href="https://github.com/Kosta-S">
+                    <img src="https://img.icons8.com/material-rounded/24/000000/github.png" alt="GitHub Icon">
+                  </a>
+              </div>
+          <a target="_blank" href="https://icons8.com/icon/60306/square-with-numbers">Square with Numbers</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+        </div>
+      </footer>
+      
     <script src="app.js"></script>
 
 </body>

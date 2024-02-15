@@ -1,54 +1,108 @@
+let calculator = document.querySelector('#calculator');
+let inputField = document.querySelector('#input');
+let topField = document.querySelector('#operation');
 let numberOne;
 let numberTwo;
 let operator;
 
-let add = (numberOne, numberTwo) => {
-    return numberOne+numberTwo;
+// function section
+let add = (numberOne, numberTwo) => 
+{
+    return parseFloat(numberOne) + parseFloat(numberTwo);
 };
 
-let subtract = (numberOne, numberTwo) => {
-    return numberOne-numberTwo;
+let subtract = (numberOne, numberTwo) => 
+{
+    return parseFloat(numberOne) - parseFloat(numberTwo);
 };
 
-let multiply  = (numberOne, numberTwo) => {
-    return numberOne*numberTwo;
+let multiply = (numberOne, numberTwo) => 
+{
+    return parseFloat(numberOne) * parseFloat(numberTwo);
 };
 
-let divide = (numberOne, numberTwo) => {
-    return numberOne/numberTwo;
+let divide = (numberOne, numberTwo) => 
+{
+    return numberTwo === '0' ? 'You can\'t divide by zero!' : parseFloat(numberOne) / parseFloat(numberTwo);
 };
 
-let operate =(operator, numberOne, numberTwo) => {
-    return operator === '+' ? add(numberOne,numberTwo):
-    operator ==='-'? subtract(numberOne, numberTwo):
-    operator ==='*'? multiply(numberOne, numberTwo):
-    operator ==='/'? divide(numberOne, numberTwo): null;
-    };
+let operate = (operator, numberOne, numberTwo) => 
+{
+    return operator === '+' ? add(numberOne, numberTwo) :
+        operator === '-' ? subtract(numberOne, numberTwo) :
+        operator === '*' ? multiply(numberOne, numberTwo) :
+        operator === '/' ? divide(numberOne, numberTwo) : null;
+};
 
-    let calcButtons = document.querySelectorAll(".row");
-    let inputField = document.querySelector('#input');
-    
-    calcButtons.forEach(buttonRow => {
-        buttonRow.addEventListener('click', function(e) {
-            if (e.target.classList.contains('digit') && inputField.innerText === '0') {
-                inputField.innerText = e.target.innerText;
-            } else if (e.target.classList.contains('digit')){
-                inputField.innerText += e.target.innerText;
-            }
-        });
-    });
+calculator.addEventListener('click', function(e) 
+{
+    //buttons with digits
+    if (e.target.classList.contains('digit')) 
+    {
+        if (inputField.innerText === '0') 
+        {
+            inputField.innerText = e.target.innerText;
+        } 
+        else 
+        {
+            inputField.innerText += e.target.innerText;
+        }
+    }
 
-    let clearButton = document.getElementById('clear');
+    // buttons clear and delete
+    if (e.target.id === 'clear') 
+    {
+        inputField.innerText = '0';
+        topField.innerText = '';
+    }
+    if (e.target.id === 'delete') 
+    {
+        if (inputField.innerText.length > 1) 
+        {
+            inputField.innerText = inputField.innerText.slice(0, -1);
+        } 
+        else 
+        {
+            inputField.innerText = '0';
+        }
+    }
+    //button Dot
+    if (e.target.id === 'dot') 
+    {
+        let dotRegExp = /\./;
+        if (!dotRegExp.test(inputField.innerText)) 
+        {
+            inputField.innerText += '.';
+        }
+    }
 
-    clearButton.addEventListener('click', function(e){
-        inputField.innerText = 0;
-    })
+    //buttons with operators
+    if (e.target.classList.contains('operator')) 
+    {
+        if (topField.innerText === '' || topField.innerText.charAt(topField.innerText.length - 1) === '=') 
+        {
+            topField.innerText = inputField.innerText + e.target.innerText;
+            numberOne = inputField.innerText;
+        } 
+        else 
+        {
+            numberTwo = inputField.innerText;
+            topField.innerText = operate(operator, numberOne, numberTwo) + e.target.innerText;
+            numberOne = operate(operator, numberOne, numberTwo);
+        }
+        operator = e.target.innerText;
+        inputField.innerText = '0';
 
-    let deleteButton = document.getElementById('delete');
-
-    deleteButton.addEventListener('click', function(e){
-        let inputText = inputField.innerText;
-        if (inputText.length > 0) {
-            let newInputText = inputText.slice(0, -1);
-            inputField.innerText = newInputText;
-    }});
+    }
+// Equal Button
+    if (e.target.classList.contains('equal'))
+    {
+        if(topField.innerText != '')
+        {
+            numberTwo = inputField.innerText;
+            inputField.innerText = operate(operator, numberOne, numberTwo);
+            topField.innerText += numberTwo;
+            topField.innerText += '=';
+        }
+    }    
+})
